@@ -1,0 +1,46 @@
+<div class="container color-dark">
+  <div class="col">
+    <p>Add a Memo to your list</p>
+  </div>
+  <div class="col">
+    <p>You have created <strong>{{ memoCount }} </strong> Memos </p>
+  </div>
+</div>
+
+<div class="container color-light">
+  <div class="col">
+
+    <form #f="ngForm" (ngSubmit)="saveMemo(f)" novalidate>
+
+      <input type="text" class="txt" name="title" placeholder="Title" ngModel>
+
+      <textarea ngModel name="body" class="txt" cols="38" rows="5" placeholder="Provide some details..."></textarea>
+
+      <button>Submit</button>
+    </form>
+
+  
+  </div>
+  <div class="col">
+  	<!-- Using ngFor to display Array -->
+    <p class="life-container" *ngFor="let memo of memos" (click)="onSelect(memo)">
+       <a routerLink="/memo/{{memo.id}}">
+          {{ memo.title | uppercase }}
+      </a>
+    </p>
+  </div>
+</div>
+
+<div *ngIf="selectedMemo">
+ 
+  <h2>{{ selectedMemo.title | uppercase }} Details</h2>
+  <div><span>id : </span>{{selectedMemo.id}}</div>
+  <div>
+      <input [(ngModel)]="selectedMemo.title" placeholder="title" class="txt">
+      <textarea  name="body" class="txt" cols="38" rows="5" [(ngModel)]="selectedMemo.body"></textarea>
+  </div>
+  <button type="submit" (click)="onDelete(selectedMemo)" id="delete"> Delete ({{selectedMemo.title}}) </button>
+  
+  <!-- <button type="submit" (click)="onUpdate(selectedMemo)" > Update ({{selectedMemo.title}}) </button> -->
+
+</div>
